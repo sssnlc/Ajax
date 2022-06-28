@@ -1,0 +1,70 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+    <button>get</button>
+    <button>post</button>
+    <button>通用</button>
+
+    <script>
+      axios.defaults.baseURL = 'http://localhost:1234';
+    let but = document.querySelectorAll("button")
+    but[0].addEventListener("click", () => {
+      axios.get("/axios-get", {
+        params: {
+          ID: 12345
+        }
+      }).then((response) => {
+        console.log(response)
+      }).catch(function (error) {
+        // 处理错误情况
+        console.log(error);
+      })
+    })
+
+    but[1].addEventListener("click", function () {
+      axios.post("/axios-post", {
+          name: "lc",
+          age: 21,
+        },{
+          params: {
+            a: 123
+          },
+          responseType: 'json',
+          headers: {  'Content-Type': 'application/x-www-form-urlencoded' },
+        }
+      ).then((response) => {
+        console.log(response)
+      })
+    })
+    
+    but[2].addEventListener("click", function () {
+      axios({
+        url:"/axios-post",
+        method:"post",
+        data:{
+          name:"lc",
+          age:21
+        },
+        headers:{'Content-Type': 'application/x-www-form-urlencoded'}
+      })
+    }).then((response)=>{
+console.log(response)
+    }).catch((error)=>{
+      console.log(error)
+    })
+
+    
+    </script>
+  </body>
+
+  </html>

@@ -1,0 +1,36 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <!-- 在这里我们用script 发送跨域请求 -->
+  <!-- script只能接收js代码 -->
+  <!-- <script src="http://localhost:1234/json"> -->
+
+
+  <body>
+    <input type="text">
+  </body>
+
+  <script>
+    // 创建这个函数,让script标签从服务器返回来的调用里使用
+    function zhuan(shu){
+      console.log(shu)
+      document.body.innerHTML= shu.value     
+    }
+
+    let inp=document.querySelector("input")
+    inp.addEventListener("input",function(){
+     let v=this.value
+     let script=document.createElement("script")
+      script.src=`http://localhost:1234/json?value=${v}`
+      document.body.appendChild(script)
+    })
+  </script>
+
+  </html>

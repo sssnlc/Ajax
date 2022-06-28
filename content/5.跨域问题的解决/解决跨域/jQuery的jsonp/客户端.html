@@ -1,0 +1,31 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  </head>
+  <!-- 在这里我们用script 发送跨域请求 -->
+  <!-- script只能接收js代码 -->
+  <!-- <script src="http://localhost:1234/json"> -->
+
+
+  <body>
+    <input type="text">
+  </body>
+
+  <script>
+    let inp=document.querySelector("input")
+    inp.addEventListener("input",function(){
+     let v=this.value
+      $.getJSON(`http://localhost:1234/json?callback=?`,{value:v},function(data){
+              document.body.innerText=data.name
+      })
+    })
+  </script>
+
+  </html>

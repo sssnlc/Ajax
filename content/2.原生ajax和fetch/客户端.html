@@ -1,0 +1,69 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <style>
+    div {
+      height: 100px;
+      width: 200px;
+      border: 1px solid black;
+    }
+  </style>
+
+  <body>
+    <button>发送</button>
+    <div></div>
+  </body>
+  <script>
+    let but= document.querySelector("button")
+    but.addEventListener("click",()=>{
+      // 1.创建对象
+     let xhr= new XMLHttpRequest()
+
+    //  2.初始化
+     xhr.open("post","http://localhost:1234/user")
+    // 设置请求头内容,可以做一些身份校验 ,由于是自定义了请求头内容,所以会报错,需要设置响应头,并将服务端设置成all,能接收所有请求
+    xhr.setRequestHeader("name","lc")
+    // 设置响应体转换的数据类型
+    xhr.responseType="json"
+    // 设置超时,请求超过时间就不继续请求了
+    xhr.timeout=2000
+
+    // 设置超时回调函数
+    xhr.ontimeout=()=>{
+      alert("很抱歉,响应时间过长")
+    }
+
+    // 网络异常回调
+    xhr.onerror=()=>{
+      alert("很抱歉,您的网络出现问题")
+    }
+
+    //  3.发送请求体
+     xhr.send("你好服务端")
+
+    //  4.绑定事件
+    // readystate 服务端有5个状态0 ,1, 2,3 ,4,当4时数据传输完毕
+
+     xhr.onreadystatechange=function(){
+          if(xhr.readyState == 4){
+            // 当状态码是以2开头就成功
+              if(xhr.status>=200 &&xhr.status<=300){
+                  console.log(xhr.status)
+                  console.log(xhr.statusText)
+                  // 拿到响应数据
+              let Div=document.querySelector("div")
+              Div.innerHTML=xhr.response.name
+              }
+          }
+     }
+    })
+  </script>
+
+  </html>

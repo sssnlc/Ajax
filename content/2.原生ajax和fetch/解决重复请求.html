@@ -1,0 +1,59 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <style>
+    div {
+      height: 100px;
+      width: 200px;
+      border: 1px solid black;
+    }
+  </style>
+
+  <body>
+    <button>发送</button>
+    <div></div>
+  </body>
+
+  <script>
+    let but =document.querySelector("button")
+    // 设置一个布尔值,判断是否发请求
+     let jie=false
+     let xhr=null
+     but.addEventListener("click",function(){
+      // 判断要写在上面,因为取消的xhr是上一次xhr对象,而不能在下面重新创建一个
+      if(jie){
+        console.log("进来")
+        // 取消请求
+        xhr.abort()
+      }
+
+      xhr=new XMLHttpRequest() 
+
+      jie=true
+      
+      xhr.open("post","http://localhost:1234/user")
+      
+      xhr.responseType="json"
+
+      xhr.send()
+    
+      xhr.onreadystatechange=()=>{
+        if(xhr.readyState == 4){
+          console.log(4)
+          jie=false
+          console.log(jie)
+        }
+      }
+      // alert(jie)
+    })
+    
+  </script>
+
+  </html>

@@ -1,0 +1,54 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <button>get</button>
+    <button>post</button>
+    <button>通用</button>
+  </body>
+  <script>
+    $("button").eq(0).click(()=>{
+      $.get("http://localhost:1234/get",{name:1,age:2},(data)=>{
+        console.log(data)
+      })
+    })
+
+    $("button").eq(1).click(()=>{
+      $.post("http://localhost:1234/post",{type:"post"},
+      (data)=>{console.log(data)},
+      "josn")
+    })
+
+    $("button").eq(2).click(()=>{
+      $.ajax({
+        // url
+        url:"http://localhost:1234/post",
+        // type
+        type:"post",
+        // data
+        data:{a:100,b:200},
+        // 回调
+        success(data,status,xhr){
+          console.log(data)
+          console.log(status)
+          console.log(xhr)
+        },
+        error(error,status,xhr){
+            console.log(error)
+            console.log(status)
+          console.log(xhr)
+        }
+      })
+    })
+  </script>
+
+  </html>
